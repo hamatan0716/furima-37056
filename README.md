@@ -2,18 +2,16 @@
 
 ## users テーブル
 
-| Column             | Type    | Options     |
-| ------------------ | ------- | ----------- |
-| nickname           | string  | null: false |
-| email              | string  | null: false |
-| encrypted_password | string  | null: false |
-| birth_year         | integer | null: false |
-| birth_month        | integer | null: false |
-| birth_day          | integer | null: false |
-| first_name         | string  | null: false |
-| last_name          | string  | null: false |
-| first_name_kana    | string  | null: false |
-| last_name_kana     | string  | null: false |
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| birth_day          | date   | null: false               |
+| first_name         | string | null: false               |
+| last_name          | string | null: false               |
+| first_name_kana    | string | null: false               |
+| last_name_kana     | string | null: false               |
 
 ### Association
 - has_many :items
@@ -54,12 +52,12 @@
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
 | postcode       | string     | null: false                    |
-| prefecture     | string     | null: false                    |
+| prefecture_id  | integer    | null: false                    |
 | city           | string     | null: false                    |
 | block          | string     | null: false                    |
 | building       | string     |                                |
-| phone_number   | integer    | null: false                    |
-| transaction_id | references | null: false, foreign_key: true |
+| phone_number   | string     | null: false                    |
+| transaction    | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to :transaction
