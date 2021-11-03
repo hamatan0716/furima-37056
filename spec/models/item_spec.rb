@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  
   before do
     @item = FactoryBot.build(:item)
   end
@@ -19,12 +18,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
       it '商品名を入力しないと出品できない' do
-        @item.name = ""
+        @item.name = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Name can't be blank")
       end
       it '商品説明を入力しないと出品できない' do
-        @item.introduction = ""
+        @item.introduction = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Introduction can't be blank")
       end
@@ -54,24 +53,24 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Until delivery can't be blank")
       end
       it '価格を入力しないと出品できない' do
-        @item.price = ""
+        @item.price = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
       it '価格が300円より低いと出品できない' do
         @item.price = '100'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be greater than or equal to 300")
+        expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
       end
       it '価格が99999999円より高いと出品できない' do
         @item.price = '10000000'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
+        expect(@item.errors.full_messages).to include('Price must be less than or equal to 9999999')
       end
       it '価格は半角数字でないと出品できない' do
         @item.price = '１０００'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Price is not a number")
+        expect(@item.errors.full_messages).to include('Price is not a number')
       end
     end
   end
