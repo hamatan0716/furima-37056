@@ -1,4 +1,21 @@
 class Item < ApplicationRecord
+
+  with_options presence:true do
+    validates :name
+    validates :introduction
+    validates :image
+  end
+
+  validates :price, presence: true, format: { with: /\A[0-9]+\z/ }, numericality: {less_than_or_equal_to: 9999999, greater_than_or_equal_to: 300 }
+  
+  with_options numericality: {orther_than: 1 } do
+    validates :category_id
+    validates :status_id
+    validates :delivery_fee_id
+    validates :delivery_source_id
+    validates :until_delivery_id
+  end
+
   belongs_to :user
   has_one_attached :image
   extend ActiveHash::Associations::ActiveRecordExtensions
