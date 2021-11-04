@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :move_to_sign_in, only: :new
+  before_action :move_to_sign_in, only: [:new, :create]
 
   def index
     @items = Item.order('created_at DESC')
