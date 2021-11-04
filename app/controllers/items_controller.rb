@@ -27,6 +27,12 @@ class ItemsController < ApplicationController
   end
 
   def updata
+    @item = Item.find(params[:id])
+    if @item.updata
+      redirect_to :show
+    else
+      render :edit
+    end
   end
 
   private
