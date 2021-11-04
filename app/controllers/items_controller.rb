@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :move_to_sign_in, only: [:new, :create]
+  before_action :move_to_sign_in, only: [:new, :create, :edit]
 
   def index
     @items = Item.order('created_at DESC')
@@ -24,6 +24,9 @@ class ItemsController < ApplicationController
 
   def edit
     @item = Item.find(params[:id])
+    if user_signed_in? && current_user.id != @item.user_id
+      redirect_to root_path
+    end
   end
 
   def update
@@ -43,6 +46,8 @@ class ItemsController < ApplicationController
   end
 
   def move_to_sign_in
-    redirect_to new_user_session_path unless user_signed_in?
+    unless user_signed_in?
+    redirect_to new_user_session_path 
+    end
   end
 end
