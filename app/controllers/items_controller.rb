@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
   before_action :move_to_sign_in, only: :new
-  
+
   def index
-    @items = Item.order("created_at DESC")
+    @items = Item.order('created_at DESC')
   end
 
   def new
@@ -26,8 +26,6 @@ class ItemsController < ApplicationController
   end
 
   def move_to_sign_in
-    unless user_signed_in?
-      redirect_to new_user_session_path
-    end
+    redirect_to new_user_session_path unless user_signed_in?
   end
 end
