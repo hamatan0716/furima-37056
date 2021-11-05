@@ -1,12 +1,12 @@
 class ItemsController < ApplicationController
-  before_action :move_to_sign_in, only: [:new, :create]
-
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :set_item, only: [:show, :edit, :update]
+  
   def index
     @items = Item.order('created_at DESC')
   end
 
   def show
-    @item = Item.find(params[:id])
   end
 
   def new
@@ -22,6 +22,18 @@ class ItemsController < ApplicationController
     end
   end
 
+  def edit
+    redirect_to root_path if current_user.id != @item.user_id
+  end
+
+  def update
+    if @item.update(item_params)
+      redirect_to item_path(@item.id)
+    else
+      render :edit
+    end
+  end
+
   private
 
   def item_params
@@ -29,7 +41,7 @@ class ItemsController < ApplicationController
                                  :until_delivery_id, :price, :image).merge(user_id: current_user.id)
   end
 
-  def move_to_sign_in
-    redirect_to new_user_session_path unless user_signed_in?
+  def set_item
+    @item = Item.find(params[:id])
   end
 end
