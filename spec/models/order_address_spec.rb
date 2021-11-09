@@ -13,25 +13,25 @@ RSpec.describe OrderAddress, type: :model do
       expect(@order_address).to be_valid
     end
     it 'buildingは空でも保存できる' do
-      @order_address.building = ""
+      @order_address.building = ''
       expect(@order_address).to be_valid
     end
 
     context '内容に問題がある場合' do
       it 'postcodeが空だと保存できない' do
-        @order_address.postcode = ""
+        @order_address.postcode = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Postcode can't be blank")
       end
       it 'postcodeは「3桁ハイフン4桁」でないと保存できない' do
-        @order_address.postcode = "1234567"
+        @order_address.postcode = '1234567'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Postcode is invalid. Include hyphen(-)")
+        expect(@order_address.errors.full_messages).to include('Postcode is invalid. Include hyphen(-)')
       end
       it 'postcodeは半角文字列でないと保存できない' do
-        @order_address.postcode = "１２３-１２３４"
+        @order_address.postcode = '１２３-１２３４'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Postcode is invalid. Include hyphen(-)")
+        expect(@order_address.errors.full_messages).to include('Postcode is invalid. Include hyphen(-)')
       end
       it 'prefecture_idは「---」だと保存できない' do
         @order_address.prefecture_id = 1
@@ -39,34 +39,34 @@ RSpec.describe OrderAddress, type: :model do
         expect(@order_address.errors.full_messages).to include("Prefecture can't be blank")
       end
       it 'cityが空だと保存できない' do
-        @order_address.city = ""
+        @order_address.city = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("City can't be blank")
       end
       it 'blockが空だと保存できない' do
-        @order_address.block = ""
+        @order_address.block = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Block can't be blank")
       end
       it 'phone_numberが空だと保存できない' do
-        @order_address.phone_number = ""
+        @order_address.phone_number = ''
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include("Phone number can't be blank")
       end
       it 'phone_numberが10桁未満だと保存できない' do
-        @order_address.phone_number = "12345678"
+        @order_address.phone_number = '12345678'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_address.errors.full_messages).to include('Phone number is invalid')
       end
       it 'phone_numberが12桁以上だと保存できない' do
-        @order_address.phone_number = "123456789012"
+        @order_address.phone_number = '123456789012'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_address.errors.full_messages).to include('Phone number is invalid')
       end
       it 'phone_numberが半角文字列でないと保存できない' do
-        @order_address.phone_number = "１２３４５６７８９０"
+        @order_address.phone_number = '１２３４５６７８９０'
         @order_address.valid?
-        expect(@order_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@order_address.errors.full_messages).to include('Phone number is invalid')
       end
       it '購入者に紐づいてないと保存できない' do
         @order_address.user_id = nil
